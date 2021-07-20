@@ -45,3 +45,13 @@ jobs:
           apt-get update && apt-get install libpq-dev
           pipx install meltano
           meltano install
+      # Upload output files as CI artifacts
+      # WARNING: do not use this option with sensitive data
+      - name: Archive output files as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: sample-output-files
+          path: |
+            output
+            !output/**/*.md
+          retention-days: 2  # Remove artifacts after 2 days
